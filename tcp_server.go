@@ -5,13 +5,14 @@ import (
 	"log"
 	"net"
 	"sync"
+	"github.com/natb0412/is105sem03/mycrypt"
 )
 
 func main() {
 
 	var wg sync.WaitGroup
 
-	server, err := net.Listen("tcp", "127.0.0.1:")
+	server, err := net.Listen("tcp", "172.17.0.3:16")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -36,7 +37,8 @@ func main() {
 						}
 						return // fra for løkke
 					}
-					switch msg := string(buf[:n]); msg {
+					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+					switch msg := string(dekryptertMelding); msg {
   				        case "ping":
 						_, err = c.Write([]byte("pong"))
 					default:
@@ -54,3 +56,4 @@ func main() {
 	}()
 	wg.Wait()
 }
+
