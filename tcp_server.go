@@ -6,6 +6,10 @@ import (
 	"log"
 	"net"
 	"sync"
+//	"strings"
+//	"strconv"
+//	"fmt"
+//	"github.com/natb0412/sem03simpleserver/conv"
 	"github.com/natb0412/is105sem03/mycrypt"
 )
 
@@ -27,6 +31,9 @@ func main() {
 			if err != nil {
 				return
 			}
+
+		  	
+
 			go func(c net.Conn) {
 				defer c.Close()
 				for {
@@ -44,6 +51,29 @@ func main() {
 					log.Println("Kryptert melding: ", string(kryptertMelding))
 
 					//krypterMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03) 5)
+//                   			 if strings.HasPrefix(string(dekryptertMelding), "Kjevik") {
+//                        		fields := strings.Split(string(dekryptertMelding), ";")
+//                        		if len(fields) >= 4 {
+//                            		celsius, err := strconv.ParseFloat(fields[3], 64)
+//                            		if err != nil {
+//                               		 log.Println(err)
+//                                	continue
+//                            		}
+//                            		fahrenheit := conv.CelsiusToFahrenheit(celsius)
+//                            		x = fmt.Sprintf("%s;%s;%s;%.1f", fields[0], fields[1], fields[2], fahrenheit)
+//                            		if err != nil {
+//                                	log.Println(err)
+//                                	return // from for loop
+//                            		}
+//                        		} else {
+//                            			log.Println("Invalid input:", string(dekryptertMelding))
+//                        			}
+//                    } 				else {
+//                       					 x = dekryptertMelding
+//							
+//                    }
+
+
 
 					switch msg := string(dekryptertMelding); msg {
   				        case "ping":
